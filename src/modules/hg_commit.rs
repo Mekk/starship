@@ -1,4 +1,5 @@
 use std::process::{Command, Output};
+use std::path::Path;
 
 use super::{Context, Module, RootModuleConfig};
 
@@ -8,10 +9,11 @@ use crate::configs::hg_commit::HgCommitConfig;
 ///
 /// Will display the commit hash if the current directory is a hg repo
 pub fn module<'a>(context: &'a Context) -> Option<Module<'a>> {
-    let is_hg_repo = context.try_begin_scan()?.set_folders(&[".hg"]).is_match();
-    if !is_hg_repo {
+    if ! is_hg_repo(context) {
         return None;
     }
+
+    log::trace!("Mercurial repo detected");
 
     let mut module = context.new_module("hg_commit");
     let config = HgCommitConfig::try_load(module.config);
@@ -22,6 +24,8 @@ pub fn module<'a>(context: &'a Context) -> Option<Module<'a>> {
     let hg_head_info = get_hg_current_commit(context);
 
     if let Some(hg_head) = hg_head_info {
+        log::debug!("repo head: {:?}", hg_head);
+
         module
             .get_prefix()
             .set_value(config.prefix)
@@ -42,6 +46,8 @@ pub fn module<'a>(context: &'a Context) -> Option<Module<'a>> {
         Some(module)
     }
     else {
+        log::trace!("failed to find head");
+
         None
     }
 }
@@ -59,3 +65,21 @@ fn get_hg_current_commit(ctx: &Context) -> Option<String> {
     let result = stdout.trim();
     if result.is_empty() { None } else { Some(result.to_string()) }
 }
+
+/// Checks whether given directory is inside some mercurial repo
+fn is_dir_inside_hg_repo(path: &Path) -> bool {
+    for candidate in path.ancestors() {
+        let mut cp = candidate.to_path_buf();
+        cp.push(".hg");
+        if cp.is_dir() {
+            return true;
+        }
+    }
+    return false;
+}
+
+/// Checks whether current directory is inside some mercurial repo
+pub fn is_hg_repo(ctx: &Context) -> bool {
+    is_dir_inside_hg_repo(ctx.current_dir.as_path())
+}
+
