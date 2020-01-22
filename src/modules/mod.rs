@@ -12,6 +12,7 @@ mod git_state;
 mod git_status;
 mod golang;
 mod hg_branch;
+mod hg_commit;
 mod hostname;
 mod java;
 mod jobs;
@@ -56,6 +57,7 @@ pub fn handle<'a>(module: &str, context: &'a Context) -> Option<Module<'a>> {
         "git_status" => git_status::module(context),
         "golang" => golang::module(context),
         "hg_branch" => hg_branch::module(context),
+        "hg_commit" => hg_commit::module(context),
         "hostname" => hostname::module(context),
         "java" => java::module(context),
         "jobs" => jobs::module(context),
@@ -97,6 +99,7 @@ pub fn description(module: &str) -> &'static str {
         "git_status" => "Symbol representing the state of the repo",
         "golang" => "The currently installed version of Golang",
         "hg_branch" => "The active branch of the repo in your current directory",
+        "hg_commit" => "The current commit in your hg repository",
         "hostname" => "The system hostname",
         "java" => "The currently installed version of Java",
         "jobs" => "The current number of jobs running",

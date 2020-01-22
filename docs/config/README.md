@@ -100,6 +100,7 @@ prompt_order = [
     "git_state",
     "git_status",
     "hg_branch",
+    "hg_commit",
     "package",
     "dotnet",
     "golang",
@@ -635,6 +636,40 @@ symbol = "🌱 "
 truncation_length = 4
 truncation_symbol = ""
 ```
+
+
+## Mercurial Commit
+
+The `hg_commit` module shows the current commit hash of the repo in your current directory.
+
+::: tip
+
+This module is disabled by default.
+To enable it, set `disabled` to `false` in your configuration file.
+
+:::
+
+### Options
+
+| Variable             | Default        | Description                                      |
+| -------------------- | -------------- | ------------------------------------------------ |
+| `commit_hash_length` | `6`            | The length of the displayed hg commit hash.      |
+| `prefix`             | `"("`          | Prefix to display immediately before git commit. |
+| `suffix`             | `")"`          | Suffix to display immediately after git commit.  |
+| `style`              | `"bold green"` | The style for the module.                        |
+| `disabled`           | `true`         | Disables the `hg_commit` module.                 |
+
+### Example
+
+```toml
+# ~/.config/starship.toml
+
+[hg_commit]
+disabled = false
+commit_hash_length = 8
+```
+
+
 
 ## Hostname
 
