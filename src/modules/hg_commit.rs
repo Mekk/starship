@@ -66,6 +66,9 @@ fn get_hg_current_commit(ctx: &Context) -> Option<String> {
     if result.is_empty() { None } else { Some(result.to_string()) }
 }
 
+// TODO: merge is_dir_inside_hg_repo and root_of_current_hg_repo
+//       into some helper module
+
 /// Checks whether given directory is inside some mercurial repo
 fn is_dir_inside_hg_repo(path: &Path) -> bool {
     for candidate in path.ancestors() {
