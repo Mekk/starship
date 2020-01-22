@@ -101,6 +101,7 @@ prompt_order = [
     "git_status",
     "hg_branch",
     "hg_commit",
+    "hg_status",
     "package",
     "dotnet",
     "golang",
@@ -667,6 +668,53 @@ To enable it, set `disabled` to `false` in your configuration file.
 [hg_commit]
 disabled = false
 commit_hash_length = 8
+```
+
+
+## Mercurial Status
+
+The `hg_status` module shows symbols representing the state of the Mercurial
+repo in your current directory.
+
+### Options
+
+| Variable           | Default                          | Description                                       |
+| ------------------ | -------------------------------- | ------------------------------------------------- |
+| `added`            | `"+"`                            | Some files were added (hg add).                   |
+| `added_count`      | [link](#mercurial-status-counts) | Show and style the number of added files.         |
+| `modified`         | `"✓"`                            | Some files are modified.                          |
+| `modified_count`   | [link](#mercurial-status-counts) | Show and style the number of modified files.      |
+| `deleted`          | `"✘"`                            | Some files were deleted (hg rm).                  |
+| `deleted_count`    | [link](#mercurial-status-counts) | Show and style the number of deleted files.       |
+| `missing`          | `"!"`                            | Some files are missing (rm).                      |
+| `missing_count`    | [link](#mercurial-status-counts) | Show and style the number of missing files.       |
+| `untracked`        | `"?"`                            | There are untracked files.                        |
+| `untracked_count`  | [link](#mercurial-status-counts) | Show and style the number of untracked files.     |
+| `prefix`           | `[`                              | Prefix to display immediately before hg status.   |
+| `suffix`           | `]`                              | Suffix to display immediately after hg status.    |
+| `style`            | `"bold red"`                     | The style for the module.                         |
+| `disabled`         | `false`                          | Disables the `hg_status` module.                  |
+
+#### Mercurial Status Counts
+
+| Variable  | Default | Description                                            |
+| --------- | ------- | ------------------------------------------------------ |
+| `enabled` | `false` | Show the number of files                               |
+| `style`   |         | Optionally style the count differently than the module |
+
+### Example
+
+```toml
+# ~/.config/starship.toml
+
+[hg_status]
+conflicted = "🏳"
+untracked = "🤷‍"
+modified = "📝"
+renamed = "👅"
+deleted = "🗑"
+prefix = "«"
+suffix = "»"
 ```
 
 

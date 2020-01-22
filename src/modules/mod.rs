@@ -13,6 +13,7 @@ mod git_status;
 mod golang;
 mod hg_branch;
 mod hg_commit;
+mod hg_status;
 mod hostname;
 mod java;
 mod jobs;
@@ -58,6 +59,7 @@ pub fn handle<'a>(module: &str, context: &'a Context) -> Option<Module<'a>> {
         "golang" => golang::module(context),
         "hg_branch" => hg_branch::module(context),
         "hg_commit" => hg_commit::module(context),
+        "hg_status" => hg_status::module(context),
         "hostname" => hostname::module(context),
         "java" => java::module(context),
         "jobs" => jobs::module(context),
@@ -100,6 +102,7 @@ pub fn description(module: &str) -> &'static str {
         "golang" => "The currently installed version of Golang",
         "hg_branch" => "The active branch of the repo in your current directory",
         "hg_commit" => "The current commit in your hg repository",
+        "hg_status" => "The symbol representing the state of Mercurial repo",
         "hostname" => "The system hostname",
         "java" => "The currently installed version of Java",
         "jobs" => "The current number of jobs running",

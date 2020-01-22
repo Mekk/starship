@@ -13,6 +13,7 @@ pub mod git_status;
 pub mod go;
 pub mod hg_branch;
 pub mod hg_commit;
+pub mod hg_status;
 pub mod hostname;
 pub mod java;
 pub mod jobs;
